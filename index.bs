@@ -92,7 +92,7 @@ spec:html; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: method; for:Window; text:requestAnimationFrame(callback); url: imagebitmap-and-animations.html#dom-animationframeprovider-requestanimationframe
     type: dfn; text: currently focused area; url: interaction.html#currently-focused-area-of-a-top-level-browsing-context
     type: dfn; text: rendering opportunity; url: webappapis.html#rendering-opportunity
-    type: dfn; text: current realm; url: webappapis.html#current
+    type: dfn; text: current principal realm; url: webappapis.html#current-principal-realm
     type: dfn; text: same origin-domain; url: origin.html#same-origin-domain
     type: dfn; text: browsing context; url: browsers.html#browsing-context
     type: dfn; text: associated document; url: window-object.html#concept-document-window
@@ -1700,12 +1700,12 @@ interface XRRigidTransform {
 
 The <dfn constructor for="XRRigidTransform">XRRigidTransform(|position|, |orientation|)</dfn> constructor MUST perform the following steps when invoked:
 
-  1. Let |transform| be a [=new=] {{XRRigidTransform}} in the [=current realm=].
-  1. Let |transform|'s {{XRRigidTransform/position}} be a [=new=] {{DOMPointReadOnly}} in the [=current realm=].
+  1. Let |transform| be a [=new=] {{XRRigidTransform}} in the [=current principal realm=].
+  1. Let |transform|'s {{XRRigidTransform/position}} be a [=new=] {{DOMPointReadOnly}} in the [=current principal realm=].
   1. If |position|'s {{DOMPointReadOnly/w}} value is not `1.0`, throw a {{TypeError}} and abort these steps.
   1. If one or more of |position|'s or |orientation|'s values is `NaN` or another non-finite number such as `infinity`, throw a {{TypeError}} and abort these steps.
   1. Set |transform|'s {{XRRigidTransform/position}}’s {{DOMPointReadOnly/x}} value to |position|'s x dictionary member, {{DOMPointReadOnly/y}} value to |position|'s y dictionary member, {{DOMPointReadOnly/z}} value to |position|'s z dictionary member and {{DOMPointReadOnly/w}} value to |position|'s w dictionary member.
-  1. Let |transform|'s {{XRRigidTransform/orientation}} be a [=new=] {{DOMPointReadOnly}} in the [=current realm=].
+  1. Let |transform|'s {{XRRigidTransform/orientation}} be a [=new=] {{DOMPointReadOnly}} in the [=current principal realm=].
   1. Set |transform|'s {{XRRigidTransform/orientation}}’s {{DOMPointReadOnly/x}} value to |orientation|'s x dictionary member, {{DOMPointReadOnly/y}} value to |orientation|'s y dictionary member, {{DOMPointReadOnly/z}} value to |orientation|'s z dictionary member and {{DOMPointReadOnly/w}} value to |orientation|'s w dictionary member.
   1. Let |transform|'s [=XRRigidTransform/internal matrix=] be `null`.
   1. [=Normalize=] {{DOMPointReadOnly/x}}, {{DOMPointReadOnly/y}}, {{DOMPointReadOnly/z}}, and {{DOMPointReadOnly/w}} components of |transform|'s {{XRRigidTransform/orientation}}.
@@ -2601,7 +2601,7 @@ When based on sensor data, {{XRPose}} and {{XRViewerPose}} will expose [=sensiti
 
 To determine if <dfn>poses may be reported</dfn> to an {{XRSession}} |session|, the user agent MUST run the following steps:
 
-  1. If |session|'s [=relevant global object=] is not the [=current global object=], return `false`.
+  1. If |session|'s [=relevant global object=] is not the [=current principal global object=], return `false`.
   1. If |session|'s {{XRSession/visibilityState}} is not {{XRVisibilityState/"visible"}}, return `false`.
   1. Determine if the pose data can be returned as follows:
     <dl class="switch">
